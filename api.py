@@ -16,14 +16,17 @@ def face_alignment(img, scale=0.9, face_size=(224,224)):
     for face_loc in face_loc_list:
         face_img = _crop_face(img, face_loc, padding_size=int((face_loc[2] - face_loc[0])*0.5))
         face_land = fr.face_landmarks(face_img)
-
+        if len(face_land) == 0:
+            return []
         left_eye_center = _find_center_pt(face_land[0]['left_eye'])
         right_eye_center = _find_center_pt(face_land[0]['right_eye'])
         trotate = _get_rotation_matrix(left_eye_center, right_eye_center, img, scale=scale)
         warped = warp(face_img, trotate)
         warped = (warped*255).astype(np.uint8)
-        new_face_loc = fr.face_locations(warped)[0]
-        output_img.append(resize(_crop_face(warped, new_face_loc), face_size))
+        new_face_loc = fr.face_locations(warped)
+        if len(new_face_loc) == 0:
+            return []
+        output_img.append(resize(_crop_face(warped, new_face_loc[0]), face_size))
 
     return output_img
 
