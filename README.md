@@ -1,6 +1,8 @@
 # face_alignment
 Simple face alignment library by using face_recognition and opencv
 
+[![codebeat badge](https://codebeat.co/badges/ccb8bcd8-adac-48f3-8ac3-c9fbda8d3934)](https://codebeat.co/projects/github-com-cftang0827-face_alignment-master)
+
 ## Environment
 1. MacOS
 2. Ubuntu 16.04
